@@ -48,6 +48,9 @@ namespace RattrapageProjet
 
         private void DisplayGrid()
         {
+            Console.SetCursorPosition(0, 0); // ← remet le curseur en haut sans effacer tout
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
             string[,] grid = new string[GridSize, GridSize];
             for (int y = 0; y < GridSize; y++)
                 for (int x = 0; x < GridSize; x++)
@@ -55,35 +58,41 @@ namespace RattrapageProjet
 
             foreach (var b in board.Buildings)
             {
-                string c = "⬜ ";
-                if (b is TownHall) c = "🏰 ";
-                else if (b is GoldMine) c = "💰 ";
-                else if (b is ElixirCollector) c = "🔮 ";
-                else if (b is Wall) c = "🧱 ";
-                else if (b is Barrack) c = "⚔️ ";
+                string c = b switch
+                {
+                    TownHall => "🏰 ",
+                    GoldMine => "💰 ",
+                    ElixirCollector => "🔮 ",
+                    Wall => "🧱 ",
+                    Barrack => "⚔️ ",
+                    _ => "⬜ "
+                };
                 if (b.X >= 0 && b.X < GridSize && b.Y >= 0 && b.Y < GridSize)
                     grid[b.X, b.Y] = c;
             }
+
             foreach (var t in board.Troops)
             {
                 string c = t is Archer ? "🎯 " : "🪓 ";
                 if (t.X >= 0 && t.X < GridSize && t.Y >= 0 && t.Y < GridSize)
                     grid[t.X, t.Y] = c;
             }
+
             foreach (var e in board.Enemies)
             {
                 string c = e is Bomberman ? "🧨 " : "👾 ";
                 if (e.X >= 0 && e.X < GridSize && e.Y >= 0 && e.Y < GridSize)
                     grid[e.X, e.Y] = c;
             }
+
             if (board.Player.X >= 0 && board.Player.X < GridSize && board.Player.Y >= 0 && board.Player.Y < GridSize)
                 grid[board.Player.X, board.Player.Y] = "🦸 ";
 
-            Console.Clear();
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            // Affichage de la grille
             Console.Write("+");
             for (int x = 0; x < GridSize; x++) Console.Write("--");
             Console.WriteLine("+");
+
             for (int y = 0; y < GridSize; y++)
             {
                 Console.Write("|");
@@ -91,9 +100,12 @@ namespace RattrapageProjet
                     Console.Write(grid[x, y]);
                 Console.WriteLine("|");
             }
+
             Console.Write("+");
             for (int x = 0; x < GridSize; x++) Console.Write("--");
             Console.WriteLine("+");
+
+            // Affichage des infos (fixe et lisible)
             Console.WriteLine();
             Console.WriteLine("🦸=Joueur 🏰=Hôtel de Ville 💰=Mine d'or 🔮=Collecteur d'élixir 🧱=Mur ⚔️=Caserne 🎯=Archer 🪓=Barbare 👾=Raider 🧨=Bomberman ⬜=Vide");
             Console.WriteLine($"Gold: {board.Player.Gold}   Elixir: {board.Player.Elixir}   TownHall: {GetTownHallHealth()}PV");
@@ -115,15 +127,22 @@ namespace RattrapageProjet
             switch (key)
             {
                 case ConsoleKey.Z:
+                case ConsoleKey.UpArrow:
                     board.Player.Move(0, -1);
                     break;
+
                 case ConsoleKey.S:
+                case ConsoleKey.DownArrow:
                     board.Player.Move(0, 1);
                     break;
+
                 case ConsoleKey.Q:
+                case ConsoleKey.LeftArrow:
                     board.Player.Move(-1, 0);
                     break;
+
                 case ConsoleKey.D:
+                case ConsoleKey.RightArrow:
                     board.Player.Move(1, 0);
                     break;
                 case ConsoleKey.G:

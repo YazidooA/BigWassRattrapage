@@ -13,15 +13,5 @@ namespace RattrapageProjet.Models
                     target.Health = 0;
             }
         }
-
-        public void MoveTowards(int targetX, int targetY)
-        {
-            int dx = targetX - X;
-            int dy = targetY - Y;
-            if (dx != 0)
-                X += dx / System.Math.Abs(dx);
-            else if (dy != 0)
-                Y += dy / System.Math.Abs(dy);
-        }
     }
 } 

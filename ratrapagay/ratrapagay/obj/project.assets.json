@@ -8,19 +8,19 @@
     "net9.0": []
   },
   "packageFolders": {
-    "C:\\Users\\k\\.nuget\\packages\\": {}
+    "C:\\Users\\LENOVO\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\k\\Desktop\\Wassim\\ratrapagay\\ratrapagay\\ratrapagay.csproj",
+      "projectUniqueName": "C:\\Users\\LENOVO\\BigWassRattrapage\\ratrapagay\\ratrapagay\\ratrapagay.csproj",
       "projectName": "ratrapagay",
-      "projectPath": "C:\\Users\\k\\Desktop\\Wassim\\ratrapagay\\ratrapagay\\ratrapagay.csproj",
-      "packagesPath": "C:\\Users\\k\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\k\\Desktop\\Wassim\\ratrapagay\\ratrapagay\\obj\\",
+      "projectPath": "C:\\Users\\LENOVO\\BigWassRattrapage\\ratrapagay\\ratrapagay\\ratrapagay.csproj",
+      "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\LENOVO\\BigWassRattrapage\\ratrapagay\\ratrapagay\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\k\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
@@ -44,7 +44,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net9.0": {
@@ -65,7 +65,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\k\\.dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.202/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

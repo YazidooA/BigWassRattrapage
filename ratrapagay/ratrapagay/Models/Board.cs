@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+
 
 namespace RattrapageProjet.Models
 {
@@ -40,6 +42,21 @@ namespace RattrapageProjet.Models
         {
             Enemies.Add(enemy);
         }
+public Enemy GetClosestEnemy(Trainable troop)
+{
+    Enemy closest = null;
+    double minDist = double.MaxValue;
+    foreach (var enemy in Enemies)
+    {
+        double dist = Math.Pow(troop.X - enemy.X, 2) + Math.Pow(troop.Y - enemy.Y, 2);
+        if (dist < minDist)
+        {
+            minDist = dist;
+            closest = enemy;
+        }
+    }
+    return closest;
+}
 
         public bool BuildBuilding(string buildingType)
         {
@@ -47,6 +64,7 @@ namespace RattrapageProjet.Models
             int y = Player.Y;
             Building building = null;
             int cost = 0;
+            if (IsPositionOccupied(x, y)) return false;
             switch (buildingType)
             {
                 case "GoldMine":
@@ -201,21 +219,15 @@ namespace RattrapageProjet.Models
             return false;
         }
 
+        // Dans Board.cs - méthode TroopActions()
         public void TroopActions()
         {
+            var townHall = Buildings.FirstOrDefault(b => b is TownHall);
+            
             foreach (var troop in Troops)
             {
-                Enemy closest = null;
-                double minDist = double.MaxValue;
-                foreach (var enemy in Enemies)
-                {
-                    double dist = (troop.X - enemy.X) * (troop.X - enemy.X) + (troop.Y - enemy.Y) * (troop.Y - enemy.Y);
-                    if (dist < minDist)
-                    {
-                        minDist = dist;
-                        closest = enemy;
-                    }
-                }
+                Enemy closest = GetClosestEnemy(troop);
+                
                 if (closest != null)
                 {
                     if (troop.X == closest.X && troop.Y == closest.Y)
@@ -227,9 +239,16 @@ namespace RattrapageProjet.Models
                         troop.MoveTowards(closest.X, closest.Y);
                     }
                 }
+                else if (townHall != null)
+                {
+                    // Retourner au Town Hall si pas d'ennemi
+                    if (troop.X != townHall.X || troop.Y != townHall.Y)
+                    {
+                        troop.MoveTowards(townHall.X, townHall.Y);
+                    }
+                }
             }
         }
-
         public void BombermanAutoSpawn(int spawnX, int spawnY)
         {
             bombermanSpawnCounter++;
@@ -247,5 +266,18 @@ namespace RattrapageProjet.Models
         {
             Enemies.Add(new Bomberman(x, y));
         }
+        // Dans Board.cs
+        public bool IsPositionOccupied(int x, int y)
+        {
+            return Buildings.Any(b => b.X == x && b.Y == y) || 
+                Troops.Any(t => t.X == x && t.Y == y) || 
+                Enemies.Any(e => e.X == x && e.Y == y);
+        }
+        public void CleanupDeadEntities()
+        {
+            Enemies.RemoveAll(e => e.Health <= 0);
+            Troops.RemoveAll(t => t.Health <= 0);
+        }
     }
+
 } 

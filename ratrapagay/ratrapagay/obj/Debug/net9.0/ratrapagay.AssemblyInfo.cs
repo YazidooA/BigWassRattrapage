@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ratrapagay")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+71be6aa47a73cbcefdb7158bbf159b8af58ac808")]
 [assembly: System.Reflection.AssemblyProductAttribute("ratrapagay")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ratrapagay")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

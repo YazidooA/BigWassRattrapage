@@ -13,10 +13,18 @@ namespace RattrapageProjet.Models
             Health = health;
         }
 
+        // Dans Entity.cs
         public void Move(int dx, int dy)
         {
-            X += dx;
-            Y += dy;
+            int newX = X + dx;
+            int newY = Y + dy;
+            
+            // Vérifier les limites (0-14)
+            if (newX >= 0 && newX < 15 && newY >= 0 && newY < 15)
+            {
+                X = newX;
+                Y = newY;
+            }
         }
     }
 } 
