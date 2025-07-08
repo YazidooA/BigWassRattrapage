@@ -1,0 +1,2 @@
+C:\Users\LENOVO\BigWassRattrapage\ratrapagay\ratrapagay\bin\Release\net9.0\win-x64\publish\ratrapagay.pdb
+C:\Users\LENOVO\BigWassRattrapage\ratrapagay\ratrapagay\bin\Release\net9.0\win-x64\publish\ratrapagay.exe
