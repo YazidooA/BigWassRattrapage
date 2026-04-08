@@ -1,0 +1,280 @@
+Parfait 👍 on passe au TP 2 – Séries de Fourier (exo 4, 5, 6).
+Je te donne le code Octave complet + les réponses importantes pour chaque exercice, basé directement sur l’énoncé .
+
+
+---
+
+✅ 🔷 EXERCICE 4 — 
+
+🔹 Code
+
+clear; clc;
+
+x = linspace(-pi, pi, 500);
+
+% Fonction f
+function y = f(x)
+  y = abs(x);
+endfunction
+
+% Somme partielle Sp
+function y = Sp(x, p)
+  y = pi/2;
+  for k = 0:p
+    y = y - (4/pi) * cos((2*k+1)*x) / (2*k+1)^2;
+  endfor
+endfunction
+
+% --- 1. Tracés ---
+figure;
+plot(x, f(x), 'k', 'linewidth', 2); hold on;
+plot(x, Sp(x,0));
+plot(x, Sp(x,3));
+plot(x, Sp(x,5));
+legend('f','S0','S3','S5');
+title('Exo 4');
+
+% --- 2. Erreurs ---
+figure;
+plot(x, f(x)-Sp(x,0)); hold on;
+plot(x, f(x)-Sp(x,3));
+plot(x, f(x)-Sp(x,5));
+legend('f-S0','f-S3','f-S5');
+title('Erreurs');
+
+% --- 3. grands p ---
+figure;
+plot(x, f(x), 'k', 'linewidth',2); hold on;
+plot(x, Sp(x,20));
+plot(x, Sp(x,50));
+plot(x, Sp(x,100));
+legend('f','S20','S50','S100');
+
+
+---
+
+🔍 Réponses
+
+✔  est continue
+
+✔ convergence uniforme (fonction continue + coefficients décroissent bien)
+
+✔ les erreurs → 0 partout
+
+
+
+---
+
+✅ 🔷 EXERCICE 5 — fonction créneau
+
+f(x)=
+\begin{cases}
+0 & x \le 0 \\
+1 & x > 0
+\end{cases}
+
+
+---
+
+🔹 Code
+
+clear; clc;
+
+x = linspace(-pi, pi, 500);
+
+function y = f(x)
+  y = (x > 0);
+endfunction
+
+function y = Sp(x, p)
+  y = 1/2;
+  for k = 0:p
+    y = y + (2/pi)*sin((2*k+1)*x)/(2*k+1);
+  endfor
+endfunction
+
+% 1. tracés
+figure;
+plot(x, f(x),'k','linewidth',2); hold on;
+plot(x, Sp(x,0));
+plot(x, Sp(x,3));
+plot(x, Sp(x,5));
+legend('f','S0','S3','S5');
+
+% 2. erreurs
+figure;
+plot(x, f(x)-Sp(x,0)); hold on;
+plot(x, f(x)-Sp(x,3));
+plot(x, f(x)-Sp(x,5));
+
+% 3. grands p
+figure;
+plot(x, f(x),'k','linewidth',2); hold on;
+plot(x, Sp(x,50));
+plot(x, Sp(x,100));
+plot(x, Sp(x,150));
+
+
+---
+
+🔍 Réponses importantes
+
+❌ Continuité
+
+ n’est pas continue en 0
+
+
+
+---
+
+❌ Convergence uniforme
+
+NON (présence de discontinuité)
+
+
+
+---
+
+🔥 Phénomène de Gibbs
+
+👉 Au voisinage de 0 :
+
+oscillations
+
+dépassement ≈ 9% du saut
+
+
+👉 Ici :
+
+\Delta f = 1
+\Rightarrow \text{dépassement} \approx 0.09
+
+✔ indépendant de 
+
+
+---
+
+📌 Valeurs aux points de discontinuité
+
+S_p(0) = \frac{f(0^-) + f(0^+)}{2} = \frac{0+1}{2} = 0.5
+
+
+---
+
+✅ 🔷 EXERCICE 6 — fonction mixte
+
+f(x)=
+\begin{cases}
+0 & x \le 0 \\
+x & x > 0
+\end{cases}
+
+
+---
+
+🔹 Code
+
+clear; clc;
+
+x = linspace(-pi, pi, 500);
+
+function y = f(x)
+  y = (x > 0).*x;
+endfunction
+
+function y = Sn(x, n)
+  y = pi/4;
+  for k = 1:n
+    if mod(k,2)==1
+      ak = -2/(pi*k^2);
+    else
+      ak = 0;
+    endif
+    
+    bk = (-1)^k / k;
+    
+    y = y + ak*cos(k*x) + bk*sin(k*x);
+  endfor
+endfunction
+
+% 1. tracé
+figure;
+plot(x, f(x),'k','linewidth',2); hold on;
+plot(x, Sn(x,1));
+plot(x, Sn(x,3));
+plot(x, Sn(x,5));
+legend('f','S1','S3','S5');
+
+% 2. erreurs
+figure;
+plot(x, f(x)-Sn(x,1)); hold on;
+plot(x, f(x)-Sn(x,3));
+plot(x, f(x)-Sn(x,5));
+
+% 3. grands n
+figure;
+plot(x, f(x),'k','linewidth',2); hold on;
+plot(x, Sn(x,50));
+plot(x, Sn(x,100));
+plot(x, Sn(x,150));
+
+
+---
+
+🔍 Réponses
+
+❌ Continuité
+
+discontinuité en  et 
+
+
+
+---
+
+❌ Convergence uniforme
+
+NON (discontinuités)
+
+
+
+---
+
+📌 Limite en π
+
+\lim_{n\to\infty} S_n(\pi) = \frac{f(\pi^-) + f(\pi^+)}{2}
+= \frac{\pi + 0}{2} = \frac{\pi}{2}
+
+
+---
+
+🔥 Gibbs
+
+\Delta f = \pi
+\Rightarrow \text{dépassement} \approx 0.09 \times \pi
+
+
+---
+
+🧠 🔥 CONCLUSION GLOBALE (très importante)
+
+👉 Résultat clé du TP :
+
+Fonction continue → convergence uniforme (exo 4)
+
+Discontinuité → ❌ convergence uniforme (exo 5,6)
+
+Toujours :
+
+
+S_n(x_0) \to \frac{f(x_0^-) + f(x_0^+)}{2}
+
+
+---
+
+🚀 Si tu veux aller plus loin
+
+Je peux te faire :
+
+✅ une rédaction parfaite à rendre
+
+✅ ou t’expliquer le phénomène de Gibbs clairement (souvent demandé en exam)
